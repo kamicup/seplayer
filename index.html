@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>効果音プレイヤー</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sound-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .sound-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .sound-button:active {
+            transform: translateY(0);
+        }
+
+        .sound-button.playing {
+            background: linear-gradient(45deg, #00b894, #00a085);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .volume-slider {
+            width: 200px;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #74b9ff;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #74b9ff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .device-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .device-select {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .device-select:focus {
+            outline: none;
+            border-color: #74b9ff;
+        }
+
+        .refresh-button {
+            background: linear-gradient(45deg, #00b894, #00a085);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .refresh-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(116, 185, 255, 0.1);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 効果音プレイヤー</h1>
+        
+        <div class="sound-grid">
+            <button class="sound-button" data-sound="notification">🔔 通知音</button>
+            <button class="sound-button" data-sound="click">🖱️ クリック音</button>
+            <button class="sound-button" data-sound="success">✅ 成功音</button>
+            <button class="sound-button" data-sound="error">❌ エラー音</button>
+            <button class="sound-button" data-sound="alert">⚠️ 警告音</button>
+            <button class="sound-button" data-sound="ding">🔔 チャイム音</button>
+            <button class="sound-button" data-sound="pop">💭 ポップ音</button>
+            <button class="sound-button" data-sound="chime">🎵 チャイム音</button>
+        </div>
+
+        <div class="controls">
+            <button class="control-button" id="stopAll">⏹️ 全て停止</button>
+            <button class="control-button" id="muteToggle">🔇 ミュート</button>
+        </div>
+
+        <div class="volume-control">
+            <label for="volume">音量:</label>
+            <input type="range" id="volume" class="volume-slider" min="0" max="100" value="50">
+            <span id="volumeValue">50%</span>
+        </div>
+
+        <div class="device-control">
+            <label for="audioDevice">音声出力デバイス:</label>
+            <select id="audioDevice" class="device-select">
+                <option value="">デフォルトデバイス</option>
+            </select>
+            <button id="refreshDevices" class="refresh-button">🔄 更新</button>
+        </div>
+
+        <div class="status" id="status">
+            準備完了 - ボタンをクリックして効果音を再生してください
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
