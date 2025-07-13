@@ -13,7 +13,8 @@ class SoundPlayer {
     }
 
     async init() {
-        await this.initializeAudioContext();
+        // AudioContextの初期化を遅延実行に変更
+        // await this.initializeAudioContext();
         // Electron環境ではデバイス選択UIを非表示
         if (window.electronAPI) {
             const deviceControl = document.querySelector('.device-control');
@@ -284,8 +285,14 @@ class SoundPlayer {
         }
     }
 
-    playSound(soundType, button) {
+    async playSound(soundType, button) {
         if (this.isMuted) return;
+        // AudioContextの初期化・resumeを最初のユーザー操作時に実行
+        if (!this.audioContext) {
+            await this.initializeAudioContext();
+        } else if (this.audioContext.state === 'suspended') {
+            await this.audioContext.resume();
+        }
         // 進捗バー取得
         const progressBar = document.querySelector(`.progress-bar[data-sound="${soundType}"]`);
         if (progressBar) progressBar.style.width = '0%';
