@@ -30,7 +30,7 @@
             color: #333;
             margin-bottom: 30px;
             font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px #0000001a;
         }
 
         .sound-grid {
@@ -188,6 +188,20 @@
             background: rgba(116, 185, 255, 0.1);
             color: #333;
         }
+        .sound-button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 6px;
+            background: linear-gradient(90deg, #00b894, #00cec9);
+            border-radius: 3px;
+            margin-top: 6px;
+            transition: width 0.1s linear;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
     </style>
 </head>
 <body>
@@ -195,14 +209,30 @@
         <h1>🎵 効果音プレイヤー</h1>
         
         <div class="sound-grid">
-            <button class="sound-button" data-sound="notification">🔔 通知音</button>
-            <button class="sound-button" data-sound="click">🖱️ クリック音</button>
-            <button class="sound-button" data-sound="success">✅ 成功音</button>
-            <button class="sound-button" data-sound="error">❌ エラー音</button>
-            <button class="sound-button" data-sound="alert">⚠️ 警告音</button>
-            <button class="sound-button" data-sound="ding">🔔 チャイム音</button>
-            <button class="sound-button" data-sound="pop">💭 ポップ音</button>
-            <button class="sound-button" data-sound="chime">🎵 チャイム音</button>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="notification">🔔 通知音</button>
+                <div class="progress-bar" data-sound="notification"></div>
+            </div>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="success">✅ 成功音</button>
+                <div class="progress-bar" data-sound="success"></div>
+            </div>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="error">❌ エラー音</button>
+                <div class="progress-bar" data-sound="error"></div>
+            </div>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="custom1">＋ 登録1</button>
+                <div class="progress-bar" data-sound="custom1"></div>
+            </div>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="custom2">＋ 登録2</button>
+                <div class="progress-bar" data-sound="custom2"></div>
+            </div>
+            <div class="sound-button-wrapper">
+                <button class="sound-button" data-sound="custom3">＋ 登録3</button>
+                <div class="progress-bar" data-sound="custom3"></div>
+            </div>
         </div>
 
         <div class="controls">

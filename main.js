@@ -77,8 +77,6 @@ function createMenu() {
             label: '表示',
             submenu: [
                 { role: 'reload', label: '再読み込み' },
-                { role: 'forceReload', label: '強制再読み込み' },
-                { role: 'toggleDevTools', label: '開発者ツール' },
                 { type: 'separator' },
                 { role: 'resetZoom', label: '実際のサイズ' },
                 { role: 'zoomIn', label: '拡大' },
@@ -92,71 +90,50 @@ function createMenu() {
             submenu: [
                 {
                     label: '通知音',
-                    accelerator: '1',
                     click: () => {
                         mainWindow.webContents.send('play-sound', 'notification');
                     }
                 },
                 {
-                    label: 'クリック音',
-                    accelerator: '2',
-                    click: () => {
-                        mainWindow.webContents.send('play-sound', 'click');
-                    }
-                },
-                {
                     label: '成功音',
-                    accelerator: '3',
                     click: () => {
                         mainWindow.webContents.send('play-sound', 'success');
                     }
                 },
                 {
                     label: 'エラー音',
-                    accelerator: '4',
                     click: () => {
                         mainWindow.webContents.send('play-sound', 'error');
                     }
                 },
+                { type: 'separator' },
                 {
-                    label: '警告音',
-                    accelerator: '5',
+                    label: 'カスタム1',
                     click: () => {
-                        mainWindow.webContents.send('play-sound', 'alert');
+                        mainWindow.webContents.send('play-sound', 'custom1');
                     }
                 },
                 {
-                    label: 'チャイム音',
-                    accelerator: '6',
+                    label: 'カスタム2',
                     click: () => {
-                        mainWindow.webContents.send('play-sound', 'ding');
+                        mainWindow.webContents.send('play-sound', 'custom2');
                     }
                 },
                 {
-                    label: 'ポップ音',
-                    accelerator: '7',
+                    label: 'カスタム3',
                     click: () => {
-                        mainWindow.webContents.send('play-sound', 'pop');
-                    }
-                },
-                {
-                    label: 'チャイム音2',
-                    accelerator: '8',
-                    click: () => {
-                        mainWindow.webContents.send('play-sound', 'chime');
+                        mainWindow.webContents.send('play-sound', 'custom3');
                     }
                 },
                 { type: 'separator' },
                 {
                     label: '全て停止',
-                    accelerator: 'Escape',
                     click: () => {
                         mainWindow.webContents.send('stop-all-sounds');
                     }
                 },
                 {
                     label: 'ミュート切り替え',
-                    accelerator: 'Space',
                     click: () => {
                         mainWindow.webContents.send('toggle-mute');
                     }
@@ -173,7 +150,7 @@ function createMenu() {
                             type: 'info',
                             title: 'SE Playerについて',
                             message: 'SE Player v1.0.0',
-                            detail: '効果音プレイヤーアプリケーション\n\nキーボードショートカット:\n1-8: 効果音再生\nSpace: ミュート切り替え\nEscape: 全て停止'
+                            detail: '効果音プレイヤーアプリケーション'
                         });
                     }
                 }
@@ -189,38 +166,7 @@ function createMenu() {
 app.whenReady().then(() => {
     createWindow();
 
-    // グローバルショートカットを登録
-    globalShortcut.register('1', () => {
-        mainWindow.webContents.send('play-sound', 'notification');
-    });
-    globalShortcut.register('2', () => {
-        mainWindow.webContents.send('play-sound', 'click');
-    });
-    globalShortcut.register('3', () => {
-        mainWindow.webContents.send('play-sound', 'success');
-    });
-    globalShortcut.register('4', () => {
-        mainWindow.webContents.send('play-sound', 'error');
-    });
-    globalShortcut.register('5', () => {
-        mainWindow.webContents.send('play-sound', 'alert');
-    });
-    globalShortcut.register('6', () => {
-        mainWindow.webContents.send('play-sound', 'ding');
-    });
-    globalShortcut.register('7', () => {
-        mainWindow.webContents.send('play-sound', 'pop');
-    });
-    globalShortcut.register('8', () => {
-        mainWindow.webContents.send('play-sound', 'chime');
-    });
-    globalShortcut.register('Space', () => {
-        mainWindow.webContents.send('toggle-mute');
-    });
-    globalShortcut.register('Escape', () => {
-        mainWindow.webContents.send('stop-all-sounds');
-    });
-
+    // グローバルショートカット登録を削除
     // macOS用の処理
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
