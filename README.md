@@ -4,6 +4,8 @@
 
 Electronアプリケーションまたは [ウェブサイト](https://kamicup.github.io/seplayer/) として動作します。
 
+![screenshot](docs/se-player-v1.0.1.png)
+
 ## 機能
 
 - 3種類のプリセット効果音（通知音、正解音、不正解音）
@@ -12,7 +14,7 @@ Electronアプリケーションまたは [ウェブサイト](https://kamicup.g
 - 各ボタン下に再生進捗バー表示
 - ボタンクリックで再生/停止
 - 音声出力デバイスを選択可能
-- Windows用インストーラー作成対応
+- Windows / MacOSX 用インストーラー作成対応
 
 ## プリセット音について
 
