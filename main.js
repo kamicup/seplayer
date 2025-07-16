@@ -9,7 +9,7 @@ let mainWindow;
 function createWindow() {
     // メインウィンドウを作成
     mainWindow = new BrowserWindow({
-        width: 800,
+        width: 600, // 初期幅を600pxに
         height: 700,
         minWidth: 600,
         minHeight: 500,
@@ -149,7 +149,7 @@ function createMenu() {
                         require('electron').dialog.showMessageBox(mainWindow, {
                             type: 'info',
                             title: 'SE Playerについて',
-                            message: 'SE Player v1.0.0',
+                            message: 'SE Player v1.0.1',
                             detail: '効果音プレイヤーアプリケーション'
                         });
                     }
@@ -190,3 +190,10 @@ app.on('will-quit', () => {
 
 // セキュリティ警告を無効化（開発用）
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'; 
+
+ipcMain.on('set-window-height', (event, height) => {
+    if (mainWindow && typeof height === 'number') {
+        const [width] = mainWindow.getContentSize();
+        mainWindow.setContentSize(width, Math.ceil(height));
+    }
+}); 

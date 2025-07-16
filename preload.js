@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     onToggleMute: (callback) => ipcRenderer.on('toggle-mute', callback),
     
     // イベントリスナーの削除
-    removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel)
+    removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
+    setWindowHeight: (height) => ipcRenderer.send('set-window-height', height),
 }); 

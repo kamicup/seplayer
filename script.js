@@ -372,4 +372,10 @@ class SoundPlayer {
 
 document.addEventListener('DOMContentLoaded', () => {
     new SoundPlayer();
+
+    // Electron環境なら高さを送信
+    if (window.electronAPI && window.electronAPI.setWindowHeight) {
+        const height = document.documentElement.scrollHeight;
+        window.electronAPI.setWindowHeight(height);
+    }
 }); 
