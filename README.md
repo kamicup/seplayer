@@ -1,7 +1,8 @@
 # SE Player (効果音プレイヤー)
 
 ボタンを押すと対応する効果音を再生する、効果音プレイヤーアプリケーションです。
-Electronアプリケーションとして動作します。
+
+Electronアプリケーションまたは [ウェブサイト](https://kamicup.github.io/seplayer/) として動作します。
 
 ## 機能
 
@@ -40,12 +41,12 @@ https://soundeffect-lab.info/ から以下の効果音を利用させていた�
 5. 「全て停止」ボタンで全ての音を停止できます。
 6. 「ミュート」ボタンで全ての音を一時的に消音できます。
 
-## インストールと実行
+## インストールと実行（開発者向け）
 
 ### 必要な環境
 - Node.js (v14以上)
 - npm
-- Windows 10/11
+- Windows 10/11 または MacOSX
 
 ### セットアップ
 
@@ -57,7 +58,7 @@ https://soundeffect-lab.info/ から以下の効果音を利用させていた�
    ```bash
    npm start
    ```
-3. Windows用インストーラーを作成:
+3. インストーラーを作成:
    ```bash
    npm run build
    ```
